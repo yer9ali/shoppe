@@ -1,84 +1,84 @@
 # 🛍️ Shoppe - E-commerce Flutter App
 
-Современное мобильное приложение для онлайн-покупок, созданное с использованием Flutter.
+Modern mobile application for online shopping, built with Flutter.
 
-## ✨ Особенности
+## ✨ Features
 
-- **Современный дизайн** - Material 3 с минималистичным интерфейсом
-- **Анимации** - Плавные переходы и анимации для лучшего UX
-- **Адаптивный интерфейс** - Работает на всех размерах экранов
-- **Русская локализация** - Полностью на русском языке
-- **Карусель изображений** - Красивая галерея продуктов
-- **Интерактивные элементы** - Отзывчивый интерфейс
+- **Modern Design** - Material 3 with minimalist interface
+- **Animations** - Smooth transitions and animations for better UX
+- **Responsive Interface** - Works on all screen sizes
+- **Russian Localization** - Fully in Russian language
+- **Image Carousel** - Beautiful product gallery
+- **Interactive Elements** - Responsive interface
 
-## 🎨 Скриншоты
+## 🎨 Screenshots
 
-- Главный экран с категориями и продуктами
-- Детальный экран продукта с каруселью изображений
-- Анимированная навигация
-- Минималистичный bottom navigation
+- Home screen with categories and products
+- Product detail screen with image carousel
+- Animated navigation
+- Minimalist bottom navigation
 
-## 🚀 Технологии
+## 🚀 Technologies
 
-- **Flutter** - Основной фреймворк
-- **Dart** - Язык программирования
-- **Material Design** - Дизайн-система
-- **Custom Animations** - Пользовательские анимации
+- **Flutter** - Main framework
+- **Dart** - Programming language
+- **Material Design** - Design system
+- **Custom Animations** - Custom animations
 
-## 📱 Функциональность
+## 📱 Functionality
 
-### Главный экран
-- SliverAppBar с скрытием при скролле
-- Поисковая строка
-- Категории товаров
-- Секции "Топ продаж" и "Новинки"
-- Анимированные карточки продуктов
+### Home Screen
+- SliverAppBar with scroll hiding
+- Search bar
+- Product categories
+- "Top Selling" and "New In" sections
+- Animated product cards
 
-### Экран деталей продукта
-- Карусель изображений с индикаторами
-- Селекторы размера, цвета и количества
-- Описание продукта
-- Отзывы пользователей
-- Кнопка "Добавить в корзину"
+### Product Detail Screen
+- Image carousel with indicators
+- Size, color, and quantity selectors
+- Product description
+- User reviews
+- "Add to Cart" button
 
-### Навигация
-- Минималистичный bottom navigation
-- Плавные переходы между экранами
-- Анимированные иконки
+### Navigation
+- Minimalist bottom navigation
+- Smooth transitions between screens
+- Animated icons
 
-## 🛠️ Установка и запуск
+## 🛠️ Installation and Setup
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 ```bash
 git clone https://github.com/yer9ali/shoppe.git
 ```
 
-2. Перейдите в папку проекта:
+2. Navigate to the project folder:
 ```bash
 cd shoppe
 ```
 
-3. Установите зависимости:
+3. Install dependencies:
 ```bash
 flutter pub get
 ```
 
-4. Запустите приложение:
+4. Run the application:
 ```bash
 flutter run
 ```
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
 ```
 lib/
-├── main.dart                 # Точка входа приложения
-├── models/                   # Модели данных
+├── main.dart                 # Application entry point
+├── models/                   # Data models
 │   └── product.dart
-├── screens/                  # Экраны приложения
+├── screens/                  # Application screens
 │   ├── home_screen.dart
 │   └── product_detail_screen.dart
-└── widgets/                  # Переиспользуемые виджеты
+└── widgets/                  # Reusable widgets
     ├── bottom_navigation.dart
     ├── categories_section.dart
     ├── custom_app_bar.dart
@@ -86,19 +86,19 @@ lib/
     └── search_bar.dart
 ```
 
-## 🎯 Планы развития
+## 🎯 Development Plans
 
-- [ ] Добавление корзины покупок
-- [ ] Система авторизации
-- [ ] Избранные товары
-- [ ] Фильтрация и сортировка
-- [ ] Push-уведомления
-- [ ] Темная тема
+- [ ] Shopping cart implementation
+- [ ] Authentication system
+- [ ] Favorite products
+- [ ] Filtering and sorting
+- [ ] Push notifications
+- [ ] Dark theme
 
-## 📄 Лицензия
+## 📄 License
 
-Этот проект создан в образовательных целях.
+This project is created for educational purposes.
 
-## 👨‍💻 Автор
+## 👨‍💻 Author
 
-Создано с ❤️ для изучения Flutter и создания красивого e-commerce приложения.
+Created with ❤️ for learning Flutter and building a beautiful e-commerce application.
