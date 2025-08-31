@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../screens/product_detail_screen.dart';
+import '../../domain/entities/product.dart';
+import '../pages/product_detail_page.dart';
 
 class ProductsSection extends StatefulWidget {
   final String title;
-  final List<Map<String, dynamic>> products;
+  final List<Product> products;
 
   const ProductsSection({
     super.key,
@@ -95,7 +96,7 @@ class _ProductsSectionState extends State<ProductsSection> with TickerProviderSt
                             Navigator.push(
                               context,
                               PageRouteBuilder(
-                                pageBuilder: (context, animation, secondaryAnimation) => ProductDetailScreen(product: product),
+                                pageBuilder: (context, animation, secondaryAnimation) => ProductDetailPage(product: product),
                                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   return SlideTransition(
                                     position: Tween<Offset>(
@@ -131,7 +132,7 @@ class _ProductsSectionState extends State<ProductsSection> with TickerProviderSt
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(12),
                                           child: Image.asset(
-                                            product['imageUrl'] as String,
+                                            product.imageUrl,
                                             width: double.infinity,
                                             height: double.infinity,
                                             fit: BoxFit.cover,
@@ -182,7 +183,7 @@ class _ProductsSectionState extends State<ProductsSection> with TickerProviderSt
                                 
                                 // Product Name
                                 Text(
-                                  product['name'] as String,
+                                  product.name,
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -199,17 +200,17 @@ class _ProductsSectionState extends State<ProductsSection> with TickerProviderSt
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '\$${(product['price'] as double).toStringAsFixed(2)}',
+                                      '\$${product.price.toStringAsFixed(2)}',
                                       style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black87,
                                       ),
                                     ),
-                                    if (product['originalPrice'] != null) ...[
+                                    if (product.originalPrice != null) ...[
                                       const SizedBox(height: 2),
                                       Text(
-                                        '\$${(product['originalPrice'] as double).toStringAsFixed(2)}',
+                                        '\$${product.originalPrice!.toStringAsFixed(2)}',
                                         style: TextStyle(
                                           fontSize: 14,
                                           decoration: TextDecoration.lineThrough,

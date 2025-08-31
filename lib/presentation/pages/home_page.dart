@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/home_provider.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/search_bar.dart';
 import '../widgets/categories_section.dart';
 import '../widgets/products_section.dart';
 import '../widgets/bottom_navigation.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int _selectedIndex = 0;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
@@ -32,6 +34,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       curve: Curves.easeInOut,
     ));
     _fadeController.forward();
+
+    // Load data when page initializes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HomeProvider>().loadData();
+    });
   }
 
   @override
@@ -109,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     )
                   : null,
-                actions: innerBoxIsScrolled 
+                actions: innerBoxIsScrolled
                   ? [
                       Container(
                         margin: const EdgeInsets.all(8),
@@ -130,83 +137,61 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
             ];
           },
-          body: FadeTransition(
-            opacity: _fadeAnimation,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 16),
-                  
-                  // Categories Section
-                  const CategoriesSection(),
-                  
-                  const SizedBox(height: 32),
-                  
-                  // Top Selling Section
-                  const ProductsSection(
-                    title: 'Топ продаж',
-                    products: [
-                      {
-                        'id': '1',
-                        'name': "Куртка Харрингтон",
-                        'price': 148.00,
-                        'imageUrl': 'assets/img/top_selling/top 1.png',
-                        'category': 'Куртки',
-                      },
-                      {
-                        'id': '2',
-                        'name': 'Спортивная куртка ',
-                        'price': 90.00,
-                        // 'originalPrice': 100.97,
-                        'imageUrl': 'assets/img/top_selling/top 2.png',
-                        'category': 'Обувь',
-                      },
-                      {
-                        'id': '3',
-                        'name': 'шлепанцы Max Cirro',
-                        'price': 50.00,
-                        'imageUrl': 'assets/img/top_selling/top 3.png',
-                        'category': 'Шорты',
-                      },
+          body: Consumer<HomeProvider>(
+            builder: (context, homeProvider, child) {
+              if (homeProvider.isLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Color(0xFF8B5CF6),
+                  ),
+                );
+              }
+
+              if (homeProvider.error != null) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Ошибка: ${homeProvider.error}',
+                        style: const TextStyle(color: Colors.red),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () => homeProvider.refresh(),
+                        child: const Text('Повторить'),
+                      ),
                     ],
                   ),
-                  
-                  const SizedBox(height: 32),
-                  
-                  // New In Section
-                  const ProductsSection(
-                    title: 'Новинки',
-                    products: [
-                      {
-                        'id': '4',
-                        'name': 'Nike Air Max 270',
-                        'price': 150.00,
-                        'imageUrl': 'assets/img/new_in/ni 1.png',
-                        'category': 'Обувь',
-                      },
-                      {
-                        'id': '5',
-                        'name': 'Adidas Originals Худи',
-                        'price': 89.99,
-                        'imageUrl': 'assets/img/new_in/ni 2.png',
-                        'category': 'Худи',
-                      },
-                      {
-                        'id': '6',
-                        'name': 'Nike Dri-FIT Футболка',
-                        'price': 35.00,
-                        'imageUrl': 'assets/img/new_in/ni 3.png',
-                        'category': 'Футболки',
-                      },
+                );
+              }
+
+              return FadeTransition(
+                opacity: _fadeAnimation,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 16),
+                      CategoriesSection(categories: homeProvider.categories),
+                      const SizedBox(height: 32),
+                      ProductsSection(
+                        title: 'Топ продаж',
+                        products: homeProvider.topSellingProducts,
+                      ),
+                      const SizedBox(height: 32),
+                      ProductsSection(
+                        title: 'Новинки',
+                        products: homeProvider.newInProducts,
+                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
-                  
-                  const SizedBox(height: 20),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

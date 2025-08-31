@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
+import '../../domain/entities/category.dart';
 
 class CategoriesSection extends StatelessWidget {
-  const CategoriesSection({super.key});
+  final List<Category> categories;
+
+  const CategoriesSection({
+    super.key,
+    required this.categories,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final categories = [
-      {'name': 'Худи', 'image': 'assets/img/hoodies.png'},
-      {'name': 'Шорты', 'image': 'assets/img/shorts.png'},
-      {'name': 'Обувь', 'image': 'assets/img/shoes.png'},
-      {'name': 'Сумки', 'image': 'assets/img/bag.png'},
-      {'name': 'Аксессуары', 'image': 'assets/img/accessories.png'},
-    ];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -28,20 +25,21 @@ class CategoriesSection extends StatelessWidget {
                 color: Colors.black87,
               ),
             ),
-            Text(
-              'Посмотреть все',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey.shade600,
-                fontWeight: FontWeight.w500,
+            TextButton(
+              onPressed: () {
+                // TODO: Navigate to categories page
+              },
+              child: const Text(
+                'Посмотреть все',
+                style: TextStyle(
+                  color: Color(0xFF8B5CF6),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],
         ),
-        
         const SizedBox(height: 16),
-        
-        // Categories List
         SizedBox(
           height: 120,
           child: ListView.builder(
@@ -51,13 +49,10 @@ class CategoriesSection extends StatelessWidget {
               final category = categories[index];
               return Container(
                 width: 80,
-                margin: EdgeInsets.only(
-                  right: index < categories.length - 1 ? 16 : 0,
-                ),
+                margin: const EdgeInsets.only(right: 16),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Category Image
                     Container(
                       width: 60,
                       height: 60,
@@ -67,7 +62,7 @@ class CategoriesSection extends StatelessWidget {
                       ),
                       child: ClipOval(
                         child: Image.asset(
-                          category['image'] as String,
+                          category.imageUrl,
                           width: 60,
                           height: 60,
                           fit: BoxFit.cover,
@@ -75,7 +70,7 @@ class CategoriesSection extends StatelessWidget {
                             return Container(
                               color: Colors.grey.shade200,
                               child: Icon(
-                                _getCategoryIcon(category['name'] as String),
+                                _getCategoryIcon(category.name),
                                 color: Colors.grey.shade700,
                                 size: 28,
                               ),
@@ -84,13 +79,10 @@ class CategoriesSection extends StatelessWidget {
                         ),
                       ),
                     ),
-                    
                     const SizedBox(height: 8),
-                    
-                    // Category Name
                     Flexible(
                       child: Text(
-                        category['name'] as String,
+                        category.name,
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -112,17 +104,17 @@ class CategoriesSection extends StatelessWidget {
   }
 
   IconData _getCategoryIcon(String categoryName) {
-    switch (categoryName.toLowerCase()) {
-      case 'худи':
+    switch (categoryName) {
+      case 'Худи':
         return Icons.checkroom;
-      case 'шорты':
+      case 'Шорты':
         return Icons.accessibility;
-      case 'обувь':
+      case 'Обувь':
         return Icons.sports_soccer;
-      case 'сумки':
+      case 'Сумки':
         return Icons.work;
-      case 'аксессуары':
-        return Icons.sports_esports;
+      case 'Аксессуары':
+        return Icons.watch;
       default:
         return Icons.category;
     }

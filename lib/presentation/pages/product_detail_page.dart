@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import '../../domain/entities/product.dart';
 
-class ProductDetailScreen extends StatefulWidget {
-  final Map<String, dynamic> product;
+class ProductDetailPage extends StatefulWidget {
+  final Product product;
 
-  const ProductDetailScreen({
+  const ProductDetailPage({
     super.key,
     required this.product,
   });
 
   @override
-  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+  State<ProductDetailPage> createState() => _ProductDetailPageState();
 }
 
-class _ProductDetailScreenState extends State<ProductDetailScreen> {
+class _ProductDetailPageState extends State<ProductDetailPage> {
   int _selectedImageIndex = 0;
   String _selectedSize = 'S';
   String _selectedColor = 'Шалфейный зеленый';
@@ -204,7 +205,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.product['name'] as String,
+                              widget.product.name,
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -213,7 +214,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
         const SizedBox(height: 8),
         Text(
-          '\$${(widget.product['price'] as double).toStringAsFixed(2)}',
+          '\$${widget.product.price.toStringAsFixed(2)}',
           style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
@@ -570,7 +571,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         child: Row(
           children: [
             Text(
-              '\$${(widget.product['price'] as double).toStringAsFixed(2)}',
+              '\$${widget.product.price.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
